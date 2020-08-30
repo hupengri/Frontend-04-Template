@@ -35,6 +35,7 @@
 
         let color = 1;
 
+        // 显示棋盘
         function show() {
             let borad = document.getElementById('board');
             borad.innerHTML = '';
@@ -51,6 +52,7 @@
             }
         }
 
+        // 移动棋子
         function move(x, y) {
             if (pattern[y][x] !== 0) {
                 return;
@@ -68,6 +70,7 @@
             computerMove()
         }
 
+        // 判断电脑位置
         function computerMove() {
             let choice = bestChoice(pattern, color);
             if (choice.point)
@@ -79,6 +82,7 @@
             show();
         }
 
+        // 检查胜负
         function check(pattern, color) {
             for (let i = 0; i < 3; i++) {
                 let win = true;
@@ -123,6 +127,7 @@
             return false;
         }
 
+        // 判断是否即将胜利
         function willWin(pattern, color) {
             for (let i = 0; i < 3; i++) {
                 for (let j = 0; j < 3; j++) {
@@ -131,17 +136,19 @@
                     let tmp = clone(pattern)
                     tmp[i][j] = color;
                     if (check(tmp, color)) {
-                        return true;
+                        return [j, i];
                     }
                 }
             }
             return null;
         }
 
+        // 深拷贝
         function clone(pattern) {
             return JSON.parse(JSON.stringify(pattern));
         }
 
+        // 计算最优解
         function bestChoice(pattern, color) {
             let p;
             if (p = willWin(pattern, color)) {
@@ -163,12 +170,6 @@
                         result = -r;
                         point = [j, i]
                     }
-                    // if(result = 1) {
-                    //     return {
-                    //         point: point,
-                    //         result: 1
-                    //     }
-                    // }
                     if (result === 1) {
                         break outer;
                     }
@@ -182,6 +183,7 @@
 
         show(pattern)
         console.log(bestChoice(pattern, color))
+
     </script>
 </body>
 
