@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: inline-block;
+            background: green;
+            line-height: 100px;
+            text-align: center;
+            font-size: 50px;
+            border: 1px solid #fff;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="board"></div>
+    <script>
+
+        // 数组3*3
+        let pattern = [
+            [1, 0, 0],
+            [0, 0, 0],
+            [0, 2, 0]
+        ];
+
+        let color = 1;
+
+
+
+        function show() {
+            let borad = document.getElementById('board');
+            borad.innerHTML = '';
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    let cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    cell.innerText = pattern[i][j] == 2 ? '❌' :
+                        pattern[i][j] == 1 ? '⭕️' : ''
+                    cell.addEventListener("click", () => move(j, i));
+                    borad.appendChild(cell);
+                }
+                borad.appendChild(document.createElement('br'));
+            }
+        }
+
+        function move(x, y) {
+            if (pattern[y][x] !== 0) {
+                return;
+            };
+            pattern[y][x] = color;
+            color = 3 - color;
+            show();
+            if (check()) {
+                alert(olor === 2 ? '❌ is winner' : '⭕️ is winner')
+            }
+        }
+
+        function check() {
+
+        }
+
+        show(pattern)
+    </script>
+</body>
+
+</html>
